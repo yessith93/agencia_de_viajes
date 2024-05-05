@@ -121,34 +121,6 @@ router.get('/test4', async (req, res) => {
     res.status(500).end(e.stack)
   }
 })
-router.get('/layout', async (req, res) => {
-  try {
-    const url = req.originalUrl.replace(base, '')
-
-    let template
-    let render
-    if (!isProduction) {
-      // Always read fresh template in development
-      template = await fs.readFile('./public/src/layout.html', 'utf-8')
-      template = await vite.transformIndexHtml(url, template)
-      // render = (await vite.ssrLoadModule('/src/layout-server.jsx')).render
-    } else {
-      template = templateHtml
-      render = (await import('./dist/server/entry-server.js')).render
-    }
-    
-    // const rendered = await render(url, ssrManifest)
-    const html = template
-      // .replace(`<!--app-head-->`, rendered.head ?? '')
-      // .replace(`<!--app-html-->`, rendered.body ?? '')
-    // console.log(html)
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
-  } catch (e) {
-    vite?.ssrFixStacktrace(e)
-    console.log(e.stack)
-    res.status(500).end(e.stack)
-  }
-})
 
 router.get('/test', function(req, res) {
     res.render('<h1>inicio</h1>');
