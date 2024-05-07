@@ -49,7 +49,7 @@ router.get('/about', async (req, res) => {
       render = (await import('./dist/server/entry-server.js')).render
     }
     const data ='test';
-      const script = `<script>window.__data__=${JSON.stringify(data)}</script>`;
+    const script = `<script>window.__data__=${JSON.stringify(data)}</script>`;
     const rendered = await render(data, ssrManifest)
 
     const html = template
@@ -83,9 +83,9 @@ router.get('/test3', async (req, res) => {
       rendered.component ="/src/entry-client.jsx";
       const html = template
         .replace(`<!--app-head-->`, rendered.head ?? '')
-        .replace(`<!--app-html-->`, `${render(data)} ${script}` ?? '')
+        .replace(`<!--app-html-->`, rendered.body ?? '')
         .replace(`<!--app-component-->`, rendered.component ?? '')
-      console.log(html)
+      console.log(rendered)
       res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
     } catch (e) {
       vite?.ssrFixStacktrace(e)
@@ -93,7 +93,7 @@ router.get('/test3', async (req, res) => {
       res.status(500).end(e.stack)
     }
   })
-router.get('/test4', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const url = req.originalUrl.replace(base, '')
 
@@ -110,10 +110,11 @@ router.get('/test4', async (req, res) => {
     }
     
     const rendered = await render(url, ssrManifest)
+    const cssFile ="Inicio";
     const html = template
-      .replace(`<!--app-head-->`, rendered.head ?? '')
-      .replace(`<!--app-html-->`, rendered.body ?? '')
-    console.log(html)
+    .replace(`<!--app-html-->`, rendered.html ?? '')
+    .replace(`<!--app-title-->`, cssFile ?? '')
+      console.log(html)
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
   } catch (e) {
     vite?.ssrFixStacktrace(e)
@@ -121,10 +122,5 @@ router.get('/test4', async (req, res) => {
     res.status(500).end(e.stack)
   }
 })
-
-router.get('/test', function(req, res) {
-    res.render('<h1>inicio</h1>');
-});
-
 
 export default router;
