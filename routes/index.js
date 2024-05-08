@@ -114,7 +114,90 @@ router.get('/', async (req, res) => {
     const html = template
     .replace(`<!--app-html-->`, rendered.html ?? '')
     .replace(`<!--app-title-->`, cssFile ?? '')
-      console.log(html)
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+  } catch (e) {
+    vite?.ssrFixStacktrace(e)
+    console.log(e.stack)
+    res.status(500).end(e.stack)
+  }
+})
+router.get('/nosotros', async (req, res) => {
+  try {
+    const url = req.originalUrl.replace(base, '')
+
+    let template
+    let render
+    if (!isProduction) {
+      // Always read fresh template in development
+      template = await fs.readFile('./index.html', 'utf-8')
+      template = await vite.transformIndexHtml(url, template)
+      render = (await vite.ssrLoadModule('/src/nosotros-server.jsx')).render
+    } else {
+      template = templateHtml
+      render = (await import('./dist/server/nosotros-server.js')).render
+    }
+    
+    const rendered = await render({title:"Nosotros"}, ssrManifest)
+    const cssFile ="Nosotros";
+    const html = template
+    .replace(`<!--app-html-->`, rendered.html ?? '')
+    .replace(`<!--app-title-->`, cssFile ?? '')
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+  } catch (e) {
+    vite?.ssrFixStacktrace(e)
+    console.log(e.stack)
+    res.status(500).end(e.stack)
+  }
+})
+router.get('/testimonios', async (req, res) => {
+  try {
+    const url = req.originalUrl.replace(base, '')
+
+    let template
+    let render
+    if (!isProduction) {
+      // Always read fresh template in development
+      template = await fs.readFile('./index.html', 'utf-8')
+      template = await vite.transformIndexHtml(url, template)
+      render = (await vite.ssrLoadModule('/src/testimonios-server.jsx')).render
+    } else {
+      template = templateHtml
+      render = (await import('./dist/server/testimonios-server.js')).render
+    }
+    
+    const rendered = await render(url, ssrManifest)
+    const cssFile ="Testimonios";
+    const html = template
+    .replace(`<!--app-html-->`, rendered.html ?? '')
+    .replace(`<!--app-title-->`, cssFile ?? '')
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+  } catch (e) {
+    vite?.ssrFixStacktrace(e)
+    console.log(e.stack)
+    res.status(500).end(e.stack)
+  }
+})
+router.get('/viajes', async (req, res) => {
+  try {
+    const url = req.originalUrl.replace(base, '')
+
+    let template
+    let render
+    if (!isProduction) {
+      // Always read fresh template in development
+      template = await fs.readFile('./index.html', 'utf-8')
+      template = await vite.transformIndexHtml(url, template)
+      render = (await vite.ssrLoadModule('/src/viajes-server.jsx')).render
+    } else {
+      template = templateHtml
+      render = (await import('./dist/server/viajes-server.js')).render
+    }
+    
+    const rendered = await render(url, ssrManifest)
+    const cssFile ="Viajes";
+    const html = template
+    .replace(`<!--app-html-->`, rendered.html ?? '')
+    .replace(`<!--app-title-->`, cssFile ?? '')
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
   } catch (e) {
     vite?.ssrFixStacktrace(e)
