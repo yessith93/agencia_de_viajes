@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import { Viajes } from '../models/Viajes.js'
 
 async function aboutController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
     try {
@@ -128,8 +129,8 @@ async function viajesController(req, res, isProduction, vite, templateHtml, ssrM
           template = templateHtml
           render = (await import('./dist/server/viajes-server.js')).render
         }
-        
-        const rendered = await render(url, ssrManifest)
+        const viajes = await Viajes.findAll();
+        const rendered = await render(viajes, ssrManifest)
         const cssFile ="Viajes";
         const html = template
         .replace(`<!--app-html-->`, rendered.html ?? '')

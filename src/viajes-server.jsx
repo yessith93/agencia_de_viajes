@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import App from './components/App'
+import Viajes from './components/Viajes'
 import Header from './layout/header'
 import Footer from './layout/footer'
 
-export function render() {
+export function render(viajes) {
   const html = ReactDOMServer.renderToString(
     <>
     <Header/>
-      <App />
+      <Viajes viajes={viajes}/>
     <Footer/>
     </>
   )

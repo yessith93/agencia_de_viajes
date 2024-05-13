@@ -1,0 +1,12 @@
+- code environment installation 
+- server installation and app initialization 
+- establish that it will use Ems 6 to use imports and exports instead of communjs with requires 
+- create router
+- since it is a backend project, a template engine must be established to serve the views 
+- verify views can receive variables from server before to loaded 
+- create the layout and style files
+- create the views
+- create a database, set it and connect with it 
+- create models and the definition of the table to the orm and being to check 
+- create a controller and associate a model with a view
+- show data from a data object in the view
