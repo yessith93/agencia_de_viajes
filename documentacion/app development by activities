@@ -10,3 +10,4 @@
 - create models and the definition of the table to the orm and being to check 
 - create a controller and associate a model with a view
 - show data from a data object in the view
+- create dynamic view to each data from the object 

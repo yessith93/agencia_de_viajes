@@ -4,7 +4,7 @@ function card_viaje({viaje}) {
             <div className="card">
                 <img className="card-img-top" src={`img/destinos_${viaje.imagen}.jpg`} alt="Card cap" />
                 <div className="card-body">
-                    <h2>{viaje.titulo}</h2>F
+                    <h2>{viaje.titulo}</h2>
                     <p>
                         <svg className="icon icon-tabler icon-tabler-calendar-event" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#dc135f" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -1,4 +1,5 @@
-function viaje({ viaje }) {
+function viaje({ data }) {
+    let viaje = data.resultado
     return (
         <main className="container mt-5">
             <div className="row">
@@ -44,4 +45,4 @@ function viaje({ viaje }) {
     );
 }
 
-export default viaje; { viaje }
+export default viaje;

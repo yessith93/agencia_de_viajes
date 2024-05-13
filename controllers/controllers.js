@@ -129,17 +129,60 @@ async function viajesController(req, res, isProduction, vite, templateHtml, ssrM
           template = templateHtml
           render = (await import('./dist/server/viajes-server.js')).render
         }
-        const viajes = await Viajes.findAll();
-        const rendered = await render(viajes, ssrManifest)
-        const cssFile ="Viajes";
-        const html = template
-        .replace(`<!--app-html-->`, rendered.html ?? '')
-        .replace(`<!--app-title-->`, cssFile ?? '')
-        res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+        try {
+            const viajes = await Viajes.findAll();
+            const rendered = await render(viajes, ssrManifest)
+            const cssFile ="Viajes";
+            const html = template
+            .replace(`<!--app-html-->`, rendered.html ?? '')
+            .replace(`<!--app-title-->`, cssFile ?? '')
+            res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+        } catch (error) {
+            console.log(error)
+        }
+      } catch (e) {
+        vite?.ssrFixStacktrace(e)
+        console.log(e.stack)
+        res.status(500).end(e.stack)
+      }
+}
+async function viajeController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
+    try {
+        const url = req.originalUrl.replace(base, '')
+    
+        let template
+        let render
+        if (!isProduction) {
+          // Always read fresh template in development
+          template = await fs.readFile('./index.html', 'utf-8')
+          template = await vite.transformIndexHtml(url, template)
+          render = (await vite.ssrLoadModule('/src/viaje-server.jsx')).render
+        } else {
+          template = templateHtml
+          render = (await import('./dist/server/viaje-server.js')).render
+        }
+        const {viaje} = req.params
+        try {
+
+            const resultado = await Viajes.findOne({
+                where: {slug:viaje}
+            });
+            const data = {
+                resultado
+            }
+            const rendered = await render(data, ssrManifest)
+            const title ="Informacion del Viaje";
+            const html = template
+            .replace(`<!--app-html-->`, rendered.html ?? '')
+            .replace(`<!--app-title-->`, title ?? '')
+            res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+        } catch (error) {
+            console.log(error)
+        }
       } catch (e) {
         vite?.ssrFixStacktrace(e)
         console.log(e.stack)
         res.status(500).end(e.stack)
       }
 } 
-export default {aboutController,inicioController,testimoniosController,nosotrosController,viajesController};
+export default {aboutController,inicioController,testimoniosController,nosotrosController,viajesController,viajeController};

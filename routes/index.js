@@ -80,5 +80,8 @@ router.get('/testimonios', async (req, res) => {
 router.get('/viajes', async (req, res) => {
   await controllers.viajesController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
 })
+router.get('/viajes/:viaje', async (req, res) => {
+  await controllers.viajeController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
+})
 
 export default router;
