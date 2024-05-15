@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
-import { Viajes } from '../models/Viajes.js'
+import { ViajesModel } from '../models/Viajes.js'
+import { title } from 'node:process'
 
 async function aboutController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
     try {
@@ -101,12 +102,15 @@ async function testimoniosController(req, res, isProduction, vite, templateHtml,
           template = templateHtml
           render = (await import('./dist/server/testimonios-server.js')).render
         }
-        
+        const title ="Testimonios";
+        const data = {
+            title,
+
+        }
         const rendered = await render(url, ssrManifest)
-        const cssFile ="Testimonios";
         const html = template
         .replace(`<!--app-html-->`, rendered.html ?? '')
-        .replace(`<!--app-title-->`, cssFile ?? '')
+        .replace(`<!--app-title-->`, title ?? '')
         res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
       } catch (e) {
         vite?.ssrFixStacktrace(e)
@@ -130,7 +134,7 @@ async function viajesController(req, res, isProduction, vite, templateHtml, ssrM
           render = (await import('./dist/server/viajes-server.js')).render
         }
         try {
-            const viajes = await Viajes.findAll();
+            const viajes = await ViajesModel.findAll();
             const rendered = await render(viajes, ssrManifest)
             const cssFile ="Viajes";
             const html = template
@@ -168,6 +172,7 @@ async function viajeController(req, res, isProduction, vite, templateHtml, ssrMa
                 where: {slug:viaje}
             });
             const data = {
+                titulo: "Informacion viaje",
                 resultado
             }
             const rendered = await render(data, ssrManifest)
