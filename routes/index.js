@@ -2,6 +2,7 @@ import express from "express";
 import app from './../app.js'
 import fs from 'node:fs/promises'
 import controllers from '../controllers/controllers.js'
+import saveTestimonioController from "../controllers/testimoniosController.js";
 
 const router = express.Router();
 // Constants
@@ -76,6 +77,9 @@ router.get('/nosotros', async (req, res) => {
 })
 router.get('/testimonios', async (req, res) => {
   await controllers.testimoniosController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
+})
+router.post('/testimonios', async (req, res) => {
+  await saveTestimonioController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
 })
 router.get('/viajes', async (req, res) => {
   await controllers.viajesController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
