@@ -21,7 +21,7 @@ Thumbs.db
 .vscode/
 
 # Dependencias y directorios de construcción
-# node_modules/
+node_modules/
 build/
 dist/
 target/
