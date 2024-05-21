@@ -2,7 +2,6 @@ import fs from 'node:fs/promises'
 async function saveTestimonioController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
     try {
         const url = req.originalUrl.replace(base, '')
-    
         let template
         let render
         if (!isProduction) {
@@ -26,17 +25,26 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
         if(mensaje.trim() === ""){
             errores.push("Mensaje no puede estar vacio")
         }
-        const data = {
+        if (errores.length > 0) {
+          const data = {
             title,
             data: {
-              errores
+              errores, 
+              nombre,
+              correo,
+              mensaje
             },
+          }
+          const rendered = await render(data, ssrManifest)
+          const html = template
+          .replace(`<!--app-html-->`, rendered.html ?? '')
+          .replace(`<!--app-title-->`, title ?? '')
+          res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
         }
-        const rendered = await render(data, ssrManifest)
-        const html = template
-        .replace(`<!--app-html-->`, rendered.html ?? '')
-        .replace(`<!--app-title-->`, title ?? '')
-        res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+        else{
+          // save in database
+        }
+       
       } catch (e) {
         vite?.ssrFixStacktrace(e)
         console.log(e.stack)
