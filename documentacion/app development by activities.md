@@ -17,4 +17,11 @@
 - persist the data in the form if they don't pass the validation
 - create new model to store the testimonios
 - save data from the form testimonios in the database
-- render the data when the form and dont pass the validation
+- render the data when the form and don't pass the validation
+### page inicio
+- render a different menu 
+- render base content
+- consult db to get the data about the last 3 travels 
+- render the data in the inicio view
+- create a new component to show the data in the inicio view and the travels view
+

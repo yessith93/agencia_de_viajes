@@ -47,8 +47,14 @@ async function inicioController(req, res, isProduction, vite, templateHtml, ssrM
           template = templateHtml
           render = (await import('./dist/server/entry-server.js')).render
         }
+        //consult db to get the data about the last 3 travels 
         
-        const rendered = await render(url, ssrManifest)
+        const viajes = await ViajesModel.findAll({limit:3});
+        const data = {
+            viajes
+        }
+        
+        const rendered = await render(data, ssrManifest)
         const cssFile ="Inicio";
         const classBody = "home";
         const html = template
@@ -174,7 +180,7 @@ async function viajeController(req, res, isProduction, vite, templateHtml, ssrMa
         const {viaje} = req.params
         try {
 
-            const resultado = await Viajes.findOne({
+            const resultado = await ViajesModel.findOne({
                 where: {slug:viaje}
             });
             const data = {

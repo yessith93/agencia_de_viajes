@@ -5,11 +5,11 @@ import Footer from './layout/footer'
 import Inicio from './components/Inicio'
 
 
-export function render() {
+export function render(data) {
   const html = ReactDOMServer.renderToString(
     <>
     <Header/>
-      <Inicio />
+      <Inicio data={data}/>
     <Footer/>
     </>
   )

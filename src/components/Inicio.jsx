@@ -1,5 +1,7 @@
 import Slider from "./subcomponents/slider";
-function Inicio(){
+import Travel_cards from "./subcomponents/travel_cards";
+function Inicio(props) {
+    const {data} = props;
     return ( <>
         <Slider />
         {/* Block contenido */}
@@ -20,7 +22,7 @@ function Inicio(){
           </div>
         </main>
       
-        
+        <Travel_cards viajes={data.viajes}/>
       </>
        );
 }
