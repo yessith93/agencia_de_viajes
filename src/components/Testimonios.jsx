@@ -19,15 +19,15 @@ function Testimonios({ data }) {
                             <form action="/testimonios" method="post">
                                 <div className="form-group">
                                     <label htmlFor="nombre">Nombre</label>
-                                    <input id="nombre" className="form-control" type="text" placeholder="Tu Nombre" name="nombre" value={nombre} required/>
+                                    <input id="nombre" className="form-control" type="text" placeholder="Tu Nombre" name="nombre" defaultValue={nombre} required/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="correo">Correo Electrónico</label>
-                                    <input id="correo" className="form-control" type="email" placeholder="Tu Correo Electrónico" name="correo" value={correo} required/>
+                                    <input id="correo" className="form-control" type="email" placeholder="Tu Correo Electrónico" name="correo" defaultValue={correo} required/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="mensaje">Mensaje</label>
-                                    <textarea id="mensaje" className="form-control" name="mensaje" rows={3} placeholder="Tu Mensaje" value={mensaje} required/>
+                                    <textarea id="mensaje" className="form-control" name="mensaje" rows={3} placeholder="Tu Mensaje" defaultValue={mensaje} required/>
                                 </div>
                                 <input className="btn btn-success btn-block" type="submit" />
                             </form>

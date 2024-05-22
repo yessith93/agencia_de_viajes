@@ -13,5 +13,7 @@
 - create dynamic view to each data from the object 
 - add body parser to express
 - adding validation of fields in server side
-- render the error in the view of testimonios
-- persist the data in the form if they dont pass the validation
+- render the errors in the view of testimonios
+- persist the data in the form if they don't pass the validation
+- create new model to store the testimonios
+- save data from the form testimonios in the database

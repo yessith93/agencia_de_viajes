@@ -1,4 +1,6 @@
 import fs from 'node:fs/promises'
+import { Testimonial } from '../models/testimonios.js'
+
 async function saveTestimonioController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
     try {
         const url = req.originalUrl.replace(base, '')
@@ -42,13 +44,23 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
           res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
         }
         else{
-          // save in database
+          try {
+            await Testimonial.create({
+              nombre,
+              correo,
+              mensaje
+            })
+            res.redirect('/testimonios');
+          } catch (e) {
+            vite?.ssrFixStacktrace(e)
+            console.log(e.stack)
+            res.status(500).end(e.stack)
+          }
+        } 
+      }catch (e) {
+          vite?.ssrFixStacktrace(e)
+          console.log(e.stack)
+          res.status(500).end(e.stack)
         }
-       
-      } catch (e) {
-        vite?.ssrFixStacktrace(e)
-        console.log(e.stack)
-        res.status(500).end(e.stack)
-      }
 }
 export default saveTestimonioController;
