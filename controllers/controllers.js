@@ -50,9 +50,11 @@ async function inicioController(req, res, isProduction, vite, templateHtml, ssrM
         
         const rendered = await render(url, ssrManifest)
         const cssFile ="Inicio";
+        const classBody = "home";
         const html = template
         .replace(`<!--app-html-->`, rendered.html ?? '')
         .replace(`<!--app-title-->`, cssFile ?? '')
+        .replace(`<!--app-classBody-->`, classBody ?? '')
         res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
       } catch (e) {
         vite?.ssrFixStacktrace(e)

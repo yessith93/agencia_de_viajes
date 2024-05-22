@@ -6,7 +6,6 @@ function Testimonios({ data }) {
     const correo = data?.data?.correo;
     const mensaje = data?.data?.mensaje;
     const { testimonios } = data.data;
-    console.log(data)
     return (
 
         <main className="container mt-5">
