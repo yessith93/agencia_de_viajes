@@ -17,3 +17,4 @@
 - persist the data in the form if they don't pass the validation
 - create new model to store the testimonios
 - save data from the form testimonios in the database
+- render the data when the form and dont pass the validation

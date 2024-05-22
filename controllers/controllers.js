@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import { ViajesModel } from '../models/Viajes.js'
+import { Testimonial } from '../models/testimonios.js'
 import { title } from 'node:process'
 
 async function aboutController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
@@ -102,12 +103,15 @@ async function testimoniosController(req, res, isProduction, vite, templateHtml,
           template = templateHtml
           render = (await import('./dist/server/testimonios-server.js')).render
         }
+        const testimonios = await Testimonial.findAll();
         const title ="Testimonios";
         const data = {
             title,
-
+            data: {
+                testimonios
+            }
         }
-        const rendered = await render(url, ssrManifest)
+        const rendered = await render(data, ssrManifest)
         const html = template
         .replace(`<!--app-html-->`, rendered.html ?? '')
         .replace(`<!--app-title-->`, title ?? '')

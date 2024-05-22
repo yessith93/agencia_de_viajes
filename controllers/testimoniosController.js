@@ -15,6 +15,7 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
           template = templateHtml
           render = (await import('./dist/server/testimonios-server.js')).render
         }
+        const testimonios = await Testimonial.findAll();
         const title ="Testimonios";
         const errores = [];
         const {nombre,correo, mensaje } = req.body
@@ -34,7 +35,8 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
               errores, 
               nombre,
               correo,
-              mensaje
+              mensaje,
+              testimonios
             },
           }
           const rendered = await render(data, ssrManifest)

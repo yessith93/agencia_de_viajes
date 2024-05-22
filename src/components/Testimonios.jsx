@@ -5,9 +5,25 @@ function Testimonios({ data }) {
     const nombre = data?.data?.nombre;
     const correo = data?.data?.correo;
     const mensaje = data?.data?.mensaje;
+    const { testimonios } = data.data;
+    console.log(data)
     return (
 
         <main className="container mt-5">
+            <div className="row testimoniales">
+                {testimonios && testimonios.map(testimonio => (
+                    <div key={testimonio.id} className="col-md-6 col-lg-4 mb-4"> 
+                        <div className="card">
+                            <div className="card-body">
+                                <blockquote className="blockquote">
+                                    <p className="mb-0">{testimonio.mensaje}</p>
+                                </blockquote>
+                                <footer className="blockquote-footer">{testimonio.nombre}</footer>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
             <div className="row">
                 <div className="col-md-12">
                     <h2 className="text-center">Agrega un Testimonial </h2>
