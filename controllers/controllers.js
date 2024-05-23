@@ -50,8 +50,10 @@ async function inicioController(req, res, isProduction, vite, templateHtml, ssrM
         //consult db to get the data about the last 3 travels 
         
         const viajes = await ViajesModel.findAll({limit:3});
+        const testimonios = await Testimonial.findAll({limit:3});
         const data = {
-            viajes
+            viajes,
+            testimonios
         }
         
         const rendered = await render(data, ssrManifest)
