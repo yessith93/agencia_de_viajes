@@ -48,9 +48,10 @@ async function inicioController(req, res, isProduction, vite, templateHtml, ssrM
           render = (await import('./dist/server/entry-server.js')).render
         }
         //consult db to get the data about the last 3 travels 
-        
-        const viajes = await ViajesModel.findAll({limit:3});
-        const testimonios = await Testimonial.findAll({limit:3});
+        const promises = [];
+        promises.push(ViajesModel.findAll({limit:3}));
+        promises.push(Testimonial.findAll({limit:3}));
+        const [viajes, testimonios] = await Promise.all(promises);  
         const data = {
             viajes,
             testimonios
