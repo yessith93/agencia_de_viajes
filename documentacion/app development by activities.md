@@ -24,4 +24,9 @@
 - consult db to get the data about the last 3 travels 
 - render the data in the inicio view
 - create a new component to show the data in the inicio view and the travels view
+- create and show the discount component in the inicio view
+- create and show the testimonios component in the inicio view
+### prepare the project to deploy 
+-  create and use environment variables to store the database information
+
 
