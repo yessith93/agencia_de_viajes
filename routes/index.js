@@ -61,7 +61,6 @@ router.get('/test3', async (req, res) => {
         .replace(`<!--app-head-->`, rendered.head ?? '')
         .replace(`<!--app-html-->`, rendered.body ?? '')
         .replace(`<!--app-component-->`, rendered.component ?? '')
-      console.log(rendered)
       res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
     } catch (e) {
       vite?.ssrFixStacktrace(e)
