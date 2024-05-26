@@ -5,7 +5,7 @@ function Testimonios({ data }) {
     const nombre = data?.data?.nombre;
     const correo = data?.data?.correo;
     const mensaje = data?.data?.mensaje;
-    const { testimonios } = data.data;
+    const { testimonios } = data;
     return (
 
         <main className="container mt-5">
@@ -31,7 +31,7 @@ function Testimonios({ data }) {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="mensaje">Mensaje</label>
-                                    <textarea id="mensaje" className="form-control" name="mensaje" rows={3} placeholder="Tu Mensaje" defaultValue={mensaje} required/>
+                                    <textarea id="mensaje" className="form-control" name="mensaje" rows={3} placeholder="Tu Mensaje" defaultValue={mensaje} />
                                 </div>
                                 <input className="btn btn-success btn-block" type="submit" />
                             </form>

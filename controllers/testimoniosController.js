@@ -1,20 +1,10 @@
-import fs from 'node:fs/promises'
 import { Testimonial } from '../models/testimonios.js'
+import { getTemplate, getRender, renderPage } from './helpers.js';
 
 async function saveTestimonioController(req, res, isProduction, vite, templateHtml, ssrManifest, base) {
     try {
         const url = req.originalUrl.replace(base, '')
-        let template
-        let render
-        if (!isProduction) {
-          // Always read fresh template in development
-          template = await fs.readFile('./index.html', 'utf-8')
-          template = await vite.transformIndexHtml(url, template)
-          render = (await vite.ssrLoadModule('/src/testimonios-server.jsx')).render
-        } else {
-          template = templateHtml
-          render = (await import('../dist/server/testimonios-server.js')).render
-        }
+        
         const testimonios = await Testimonial.findAll();
         const title ="Testimonios";
         const errores = [];
@@ -40,11 +30,7 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
               testimonios
             },
           }
-          const rendered = await render(data, ssrManifest)
-          const html = template
-          .replace(`<!--app-html-->`, rendered.html ?? '')
-          .replace(`<!--app-title-->`, title ?? '')
-          res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
+          renderPage(res, url, isProduction, vite, templateHtml, ssrManifest, base, data, title);
         }
         else{
           try {
