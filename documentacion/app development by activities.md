@@ -27,6 +27,8 @@
 - create and show the discount component in the inicio view
 - create and show the testimonios component in the inicio view
 ### prepare the project to deploy 
--  create and use environment variables to store the database information
+- create and use environment variables to store the database information
+- clean the code to serve the project, this mean to prepare well because I use vite to serve the project
+    - try one server file to serve all the views
 
 

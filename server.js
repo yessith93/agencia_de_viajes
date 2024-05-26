@@ -1,6 +1,6 @@
 import app from './app.js'
 import router from './routes/index.js'
-import db from './config/db.js'
+import db from './database/db.js'
 
 const port = process.env.PORT || 5173
 

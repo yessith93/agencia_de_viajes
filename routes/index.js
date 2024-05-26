@@ -35,9 +35,9 @@ if (!isProduction) {
   app.use(base, sirv('./dist/client', { extensions: [] }))
 }
 
-router.get('/about', async (req, res) => {
-  await controllers.aboutController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
-})
+// router.get('/about', async (req, res) => {
+//   await controllers.aboutController(req, res, isProduction, vite, templateHtml, ssrManifest,base);
+// })
 
 router.get('/test3', async (req, res) => {
     try {
@@ -50,10 +50,7 @@ router.get('/test3', async (req, res) => {
         template = await fs.readFile('./index.html', 'utf-8')
         template = await vite.transformIndexHtml(url, template)
         render = (await vite.ssrLoadModule('/src/entry-server.jsx')).render
-      } else {
-        template = templateHtml
-        render = (await import('./dist/server/entry-server.js')).render
-      }
+      } 
       
       const rendered = await render(url, ssrManifest)
       rendered.component ="/src/entry-client.jsx";

@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import db from '../config/db.js';
+import db from '../database/db.js';
 
 export const Testimonial = db.define('testimoniales', {
     nombre: {

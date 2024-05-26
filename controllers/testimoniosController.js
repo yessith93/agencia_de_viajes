@@ -13,7 +13,7 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
           render = (await vite.ssrLoadModule('/src/testimonios-server.jsx')).render
         } else {
           template = templateHtml
-          render = (await import('./dist/server/testimonios-server.js')).render
+          render = (await import('../dist/server/testimonios-server.js')).render
         }
         const testimonios = await Testimonial.findAll();
         const title ="Testimonios";
@@ -30,6 +30,7 @@ async function saveTestimonioController(req, res, isProduction, vite, templateHt
         }
         if (errores.length > 0) {
           const data = {
+            view: "testimonios",
             title,
             data: {
               errores, 
