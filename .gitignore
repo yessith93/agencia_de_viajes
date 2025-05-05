@@ -1,0 +1,41 @@
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de compilación
+*.o
+*.out
+*.class
+*.exe
+
+# Archivos de respaldo y temporales
+*~
+.backup/
+.tmp/
+.temp/
+.temp.*
+*.swp
+
+# Archivos y directorios específicos de IDEs
+.idea/
+.vscode/
+
+# Dependencias y directorios de construcción
+node_modules/
+build/
+dist/
+target/
+bin/
+obj/
+
+# Logs y archivos de registro
+*.log
+logs/
+log/
+logs/*
+*.log.*
+
+# Archivos de configuración local
+.env
+*.env
+.env.*

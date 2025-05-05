@@ -1,7 +1,11 @@
 import app from './app.js'
 import router from './routes/index.js'
+import db from './database/db.js'
 
 const port = process.env.PORT || 5173
+
+db.authenticate()
+    .catch( error => console.log(error));
 
 // Serve HTML
 app.use('/',router)
